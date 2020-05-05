@@ -1,0 +1,10 @@
+  cops:
+    image: vm75/cops
+    container_name: cops
+    ports:
+      - 3080:80
+    volumes:
+      - /mnt/library/reading/Calibre\ Portable/:/var/cops
+    restart: unless-stopped
+    environment:
+

@@ -1,0 +1,15 @@
+  minidlna:
+    image: vm75/minidlna
+    container_name: minidlna
+    network_mode: host
+    ports:
+      - 9321:80
+    volumes:
+      - /mnt/video:/mnt/minidlna/Music 
+      - /mnt/audio:/mnt/minidlna/Videos
+    restart: unless-stopped
+    environment:
+      - MINIDLNA_MEDIA_DIR_1=A,/mnt/minidlna/Music 
+      - MINIDLNA_MEDIA_DIR_2=V,/mnt/minidlna/Videos 
+      - MINIDLNA_FRIENDLY_NAME=sngrah
+

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+git clone https://github.com/vm75/cops.git
+cd cops
+git checkout dev
+docker build -t vm75/cops .
+

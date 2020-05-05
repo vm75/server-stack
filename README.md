@@ -1,2 +1,2 @@
 # server-stack
-A collection of servers
+A collection of docker servers
