@@ -8,6 +8,7 @@ pushd $stackDir
 
 #One entry per line to simplify PRs
 declare -A cont_array=(
+	[bitwardenrs]="bitwardenrs"
 	[cops]="cops"
 	[minidlna]="minidlna"
 )
@@ -17,8 +18,9 @@ declare -A cont_array=(
 # keys for CONTAINER
 # One per line to simply PR
 declare -a armhf_keys=(
-	"cops" 
-	"minidlna" 
+	"bitwardenrs"
+	"cops"
+	"minidlna"
 )
 
 sys_arch=$(uname -m)
@@ -136,6 +138,7 @@ fi
 # Display main menu
 mainmenu_selection=$(whiptail --title "Main Menu" --menu --notags \
 	"" 20 78 12 -- \
+	"install" "Install Docker" \
 	"build" "Build Stack" \
 	"commands" "Docker commands" \
 	"backup" "Backup options" \
@@ -143,6 +146,29 @@ mainmenu_selection=$(whiptail --title "Main Menu" --menu --notags \
 	3>&1 1>&2 2>&3)
 
 case $mainmenu_selection in
+#MAINMENU Install docker  ------------------------------------------------------------
+"install")
+	#sudo apt update && sudo apt upgrade -y ;;
+
+	if command_exists docker; then
+		echo "docker already installed"
+	else
+		echo "Install Docker"
+		curl -fsSL https://get.docker.com | sh
+		sudo usermod -aG docker $USER
+	fi
+
+	if command_exists docker-compose; then
+		echo "docker-compose already installed"
+	else
+		echo "Install docker-compose"
+		sudo apt install -y docker-compose
+	fi
+
+	if (whiptail --title "Restart Required" --yesno "It is recommended that you restart your device now. Select yes to do so now" 20 78); then
+		sudo reboot
+	fi
+	;;
 	#MAINMENU Build stack ------------------------------------------------------------
 "build")
 

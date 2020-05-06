@@ -1,0 +1,9 @@
+  bitwardenrs:
+    image: bitwardenrs/server:raspberry
+    container_name: bitwardenrs
+    ports:
+      - 8380:80
+    volumes:
+      - ./volumes/bitwardenrs/data:/data
+    restart: unless-stopped
+
